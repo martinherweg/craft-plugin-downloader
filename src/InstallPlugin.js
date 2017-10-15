@@ -1,6 +1,8 @@
 const fs = require('fs-extra');
 const chalk = require('chalk');
 
+const { downloadPlugin } = require('./helperFunctions/downloadPlugin');
+
 const error = chalk.bold.bgRed;
 
 module.exports = async function installPlugin({ config, pluginUrl }) {
@@ -18,6 +20,14 @@ module.exports = async function installPlugin({ config, pluginUrl }) {
   try {
     await fs.writeJson(config, pkg, {
       spaces: 2,
+    });
+
+    await downloadPlugin({
+      url: pluginUrl,
+      folders: {
+        tmpFolder: craftPluginDownloader.tmpFolder,
+        pluginFolder: craftPluginDownloader.pluginPath,
+      },
     });
   } catch (error) {
     console.error(error);

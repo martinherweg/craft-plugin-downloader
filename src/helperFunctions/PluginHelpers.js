@@ -7,6 +7,7 @@ const path = require('path');
  * @returns array
  */
 function installedPlugins(craftPluginFolder) {
+  fs.ensureDirSync(craftPluginFolder);
   return fs.readdirSync(craftPluginFolder).filter(file => fs.lstatSync(path.join(craftPluginFolder, file)).isDirectory());
 }
 
@@ -14,11 +15,11 @@ function installedPlugins(craftPluginFolder) {
  * Find a Plugin in the Craft Plugins Folder and return its name
  * @param pluginUrl
  */
-function findPlugin(pluginUrl) {
+function findPlugin({ pluginUrl, folders }) {
   // Check the Craft Plugin folder for installed Plugins
   // Using fs to get all files in the Folder, returns array with all files
   // filter them for just the directories
-  const installedPluginsList = installedPlugins(craftPluginFolder);
+  const installedPluginsList = installedPlugins(folders.pluginFolder);
   // split the given plugin url to get an array so we can get the plugin name by url
   let url = pluginUrl.split('/');
   // get the last element of the array (should be the name, maybe needs better check)

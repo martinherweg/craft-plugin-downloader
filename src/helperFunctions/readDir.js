@@ -1,4 +1,5 @@
 const fs = require('fs-extra');
+const path = require('path');
 
 /**
  * Function to get a list with all files including those in subfolders in the given dir
@@ -8,3 +9,5 @@ const fs = require('fs-extra');
 function readDirR(dir) {
   return fs.statSync(dir).isDirectory() ? Array.prototype.concat(...fs.readdirSync(dir).map(f => readDirR(path.join(dir, f)))) : dir;
 }
+
+module.exports = readDirR;
