@@ -49,7 +49,7 @@ function downloadFile({ pluginUrl, folders }) {
     })
     .then(() => {
       // Recursive read all Files in the tmp Folder
-      const files = readDirR(path.resolve(__dirname, folders.tmpFolder));
+      const files = readDirR(path.resolve(process.cwd(), folders.tmpFolder));
       // find the File which includes `Plugin.php` to get the Folder which contains the Plugin
       const PluginFile = files.find(dataItem => dataItem.includes('Plugin.php'));
       const PluginFileDirectory = path.dirname(PluginFile);
