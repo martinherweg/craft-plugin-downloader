@@ -13,7 +13,7 @@ const findPlugin = require('./PluginHelpers');
  * @param pluginUrl
  * @returns {*|Promise.<T>}
  */
-function downloadFile({ pluginUrl, folders }) {
+function downloadFile({ pluginUrl, folders, update }) {
   console.log(chalk`{blue Downloading {yellow ${pluginUrl}}}`);
   // construct the Plugin Url (just github)
   let pluginZip;
@@ -65,7 +65,7 @@ function downloadFile({ pluginUrl, folders }) {
       }
       // finally move the Plugin Folder to the Craft Plugin Folder with the name of the Plugin
       fs.moveSync(PluginFileDirectory, folders.pluginFolder + PluginFolder, {
-        overwrite: false,
+        overwrite: update,
       });
 
       // Remove the Plugin Folder
@@ -82,6 +82,7 @@ function downloadFile({ pluginUrl, folders }) {
  */
 async function downloadPlugin({ url, folders }) {
   const isInstalled = findPlugin({ pluginUrl: url, folders });
+  let willUpdate = false;
   // if there is an item return here so we don't download a installed plugin again.
   if (isInstalled !== undefined && isInstalled.length > 0) {
     try {
@@ -101,12 +102,13 @@ async function downloadPlugin({ url, folders }) {
       console.error(e);
     }
 
-    if (!willUpdate) return;
+    if (!willUpdate) return console.log(chalk`{yellow Plugin will not get updated}`);
   }
 
   return downloadFile({
     pluginUrl: url,
     folders,
+    update: willUpdate,
   });
 }
 

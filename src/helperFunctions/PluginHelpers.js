@@ -31,9 +31,14 @@ function findPlugin({ pluginUrl, folders }) {
     .replace('_', '');
   // convert the url to all lower case and replace craft or cms or craftcms, now we should get the clean plugin name
   // which is also used in the plugin folder as Folder name
-  url = url.toLowerCase().replace(/(craft)(cms)*/gi, '');
+  url = url
+    .toLowerCase()
+    .replace(/(craft)(cms)*/gi, '')
+    .trim();
   // find an item in the installedPlugins array which includes the string we just created
-  const pluginName = installedPluginsList.find(item => item.match(/url/gi));
+  const matcher = new RegExp(url, 'gi');
+  const pluginName = installedPluginsList.find(item => item.match(matcher));
+
   return pluginName;
 }
 
