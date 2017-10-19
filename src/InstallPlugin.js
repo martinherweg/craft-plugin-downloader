@@ -5,7 +5,7 @@ const { downloadPlugin } = require('./helperFunctions/downloadPlugin');
 
 const error = chalk.bold.bgRed;
 
-module.exports = async function installPlugin({ config, pluginUrl }) {
+module.exports = async function installPlugin({ config, pluginUrl, update = false }) {
   const pkg = fs.readJsonSync(config);
   const { craftPluginDownloader } = pkg;
 
@@ -28,6 +28,7 @@ module.exports = async function installPlugin({ config, pluginUrl }) {
         tmpFolder: craftPluginDownloader.tmpFolder,
         pluginFolder: craftPluginDownloader.pluginPath,
       },
+      willUpdate: update,
     });
   } catch (error) {
     console.error(error);

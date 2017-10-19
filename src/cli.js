@@ -3,6 +3,7 @@ const chalk = require('chalk');
 const findUp = require('find-up');
 
 const installPlugin = require('../src/InstallPlugin');
+const updatePlugins = require('../src/updatePlugins');
 
 const configPath = findUp.sync('package.json');
 const config = require(configPath);
@@ -29,7 +30,7 @@ const cli = () => {
       pluginUrl: foo.url,
     });
   } else if (foo._[0] === 'update') {
-    console.log('update Plugins');
+    updatePlugins({ config: configPath });
   }
 };
 module.exports = cli;

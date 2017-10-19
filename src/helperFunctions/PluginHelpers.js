@@ -43,4 +43,4 @@ function findPlugin({ pluginUrl, folders }) {
 }
 
 exports.installedPlugins = installedPlugins;
-module.exports = findPlugin;
+exports.findPlugin = findPlugin;

@@ -6,7 +6,7 @@ const inquirer = require('inquirer');
 const path = require('path');
 
 const readDirR = require('./readDir');
-const findPlugin = require('./PluginHelpers');
+const { findPlugin } = require('./PluginHelpers');
 
 /**
  * Function to Download the Plugin Files
@@ -25,14 +25,6 @@ function downloadFile({ pluginUrl, folders, update }) {
   // create an empty tmp dir
   fs.emptyDirSync(folders.tmpFolder);
 
-  // initialize node-progress
-  const bar = new ProgressBar('[:bar] :percent :etas', {
-    complete: '=',
-    incomplete: ' ',
-    width: 20,
-    total: 0,
-  });
-
   // use the donwload package which returns a promise to download the file
   // extract it to the tmpfolder
   /**
@@ -44,7 +36,14 @@ function downloadFile({ pluginUrl, folders, update }) {
     mode: '775',
   })
     .on('response', res => {
-      bar.total = res.headers['content-length'];
+      const length = parseInt(res.headers['content-length'], 10);
+      // initialize node-progress
+      const bar = new ProgressBar('[:bar] :percent :etas', {
+        complete: '=',
+        incomplete: ' ',
+        width: 20,
+        total: length,
+      });
       res.on('data', data => bar.tick(data.length));
     })
     .then(() => {
@@ -80,11 +79,10 @@ function downloadFile({ pluginUrl, folders, update }) {
  * @param pluginUrl (String)
  * @returns {Promise.<T>|*}
  */
-async function downloadPlugin({ url, folders }) {
+async function downloadPlugin({ url, folders, willUpdate = false }) {
   const isInstalled = findPlugin({ pluginUrl: url, folders });
-  let willUpdate = false;
   // if there is an item return here so we don't download a installed plugin again.
-  if (isInstalled !== undefined && isInstalled.length > 0) {
+  if (isInstalled !== undefined && isInstalled.length > 0 && !willUpdate) {
     try {
       await inquirer
         .prompt([
