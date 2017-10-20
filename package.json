@@ -6,13 +6,13 @@
   "bin": {
     "craft-plugin-downloader": "./index.js"
   },
+  "repository": "https://github.com/martinherweg/craft-plugin-downloader",
+  "keywords": ["craftcms"],
   "scripts": {
     "test": "jest"
   },
   "jest": {
-    "setupFiles": [
-      "./jestsetup.js"
-    ]
+    "setupFiles": ["./jestsetup.js"]
   },
   "dependencies": {
     "chalk": "^2.1.0",
