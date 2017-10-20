@@ -3,13 +3,19 @@ I've created this module for CraftCMS 2, because I found it rather annoying to d
 
 This module simplifies the process, so that you only need to type `yarn craft-plugin-downloader install <github repo url>` in your terminal and it will download the plugin, extract it and copy it to the defined CraftCMS plugin folder.
 
+If you want a different version you could provide the URL to the .zip File.
+For Example to download v1 of the Craft Element API Plugin you could use
+```
+yarn craft-plugin-downloader install https://github.com/craftcms/element-api/archive/v1.zip
+```
+
 If you don't use yarn, please see the explanation further down.
 
 ## Installation
 
 with yarn
 ```
-yarn install craft-plugin-downloader --dev
+yarn add craft-plugin-downloader --dev
 ```
 
 with npm
@@ -22,8 +28,8 @@ Add this to your package.json
 ```
 "craftPluginDownloader": {
     "plugins": [],
-    "tmpFolder": "tmp/folder/for/the/download",
-    "pluginPath": "path/to/your/craft/plugins/folder"
+    "tmpFolder": "tmp/folder/for/the/download/",
+    "pluginPath": "path/to/your/craft/plugins/folder/"
 }
 ```
 
