@@ -4,6 +4,7 @@ const findUp = require('find-up');
 
 const installPlugin = require('../src/InstallPlugin');
 const updatePlugins = require('../src/updatePlugins');
+const installAllPlugins = require('../src/InstallAllPlugins');
 
 const configPath = findUp.sync('package.json');
 const config = require(configPath);
@@ -19,6 +20,11 @@ const cli = () => {
           describe: 'A Github Repo URL',
         }),
     })
+    .command({
+      command: 'all',
+      aliases: 'a',
+      desc: 'Installs all Plugins defined in the config File.',
+    })
     .command('update', 'Gets list of installed Plugins via package.json and lists them so you can check of which you want to update')
     .demandCommand(1, chalk`{bgRed You must at least specify one command to move on}`)
     .help('h')
@@ -31,6 +37,8 @@ const cli = () => {
     });
   } else if (foo._[0] === 'update') {
     updatePlugins({ config: configPath });
+  } else if (foo._[0] === 'all') {
+    installAllPlugins({ config: configPath });
   }
 };
 module.exports = cli;
