@@ -35,7 +35,12 @@ Add this to your package.json
 
 
 # Usage
-You can also add these 3 commands to `scripts` in your package.json
+The Script provides 3 commands.
+* `install <url>` Add Url to a Craft CMS Plugin github repo
+* `update` Update all Plugins added via this module
+* `all` Install all Plugins in the `"plugins"` array in your package.json
+
+You can add these commands in the `scripts` part of your package.json for easier use.
 
 ```
 "scripts": {
