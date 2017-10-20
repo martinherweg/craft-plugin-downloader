@@ -1,6 +1,6 @@
 const fs = require('fs-extra');
 const download = require('download');
-const ProgressBar = require('progress');
+const ProgressBar = require('ascii-progress');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
 const path = require('path');
@@ -38,13 +38,15 @@ function downloadFile({ pluginUrl, folders, update }) {
     .on('response', res => {
       const length = parseInt(res.headers['content-length'], 10);
       // initialize node-progress
-      const bar = new ProgressBar('[:bar] :percent :etas', {
-        complete: '=',
-        incomplete: ' ',
-        width: 20,
+      const bar = new ProgressBar({
+        schema: '[:bar] :percent :elapseds :etas',
+        filled: '*',
         total: length,
       });
       res.on('data', data => bar.tick(data.length));
+      if (bar.completed) {
+        console.log('Plugin successfully downloaded');
+      }
     })
     .then(() => {
       // Recursive read all Files in the tmp Folder
