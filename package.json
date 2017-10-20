@@ -1,18 +1,22 @@
 {
   "name": "craft-plugin-downloader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
   "bin": {
     "craft-plugin-downloader": "./index.js"
   },
   "repository": "https://github.com/martinherweg/craft-plugin-downloader",
-  "keywords": ["craftcms"],
+  "keywords": [
+    "craftcms"
+  ],
   "scripts": {
     "test": "jest"
   },
   "jest": {
-    "setupFiles": ["./jestsetup.js"]
+    "setupFiles": [
+      "./jestsetup.js"
+    ]
   },
   "dependencies": {
     "chalk": "^2.1.0",
