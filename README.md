@@ -37,7 +37,7 @@ Add this to your package.json
 # Usage
 You can also add these 3 commands to `scripts` in your package.json
 
-* ```
+```
 "scripts": {
     "installPlugin": "craft-plugin-downloader install",
     "updatePlugins": "craft-plugin-downloader update",
