@@ -34,7 +34,7 @@ Add this to your package.json
 `pluginPath` and `tmpFolder` are relative to your project root.
 
 
-# Usage
+## Usage
 The script provides three commands.
 * `install <URL>` Install a CraftCMS plugin from a Github URL
 * `update` Update all plugins listed in the `"plugins"` array within your package.json
