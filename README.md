@@ -66,3 +66,16 @@ with yarn
 ```
 yarn installPlugin <URL to Github repo>
 ```
+
+## Known issues
+Sometimes there is a problem with `node-progress` and you get an error like this
+```
+RangeError: Invalid array length
+    at ProgressBar.render (/project/node_modules/craft-plugin-downloader/node_modules/progress/lib/node-progress.js:155:14)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5)
+error Command failed with exit code 1.
+```
+
+If this error occurs please just repeat the command.
