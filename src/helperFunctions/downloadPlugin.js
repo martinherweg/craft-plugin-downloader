@@ -57,7 +57,7 @@ function downloadFile({ pluginUrl, folders, update }) {
       // get the Folder name the Plugin is located in
       let PluginFolder = path.basename(PluginFileDirectory);
       // check again for the existence of the Plugin Folder and return if true
-      if (fs.pathExistsSync(folders.pluginFolder + PluginFolder)) return;
+      if (fs.pathExistsSync(folders.pluginFolder + PluginFolder) && !update) return;
 
       // if the plugin folder is located in the root it often contains -master from the zip
       // we replace it here
@@ -65,6 +65,7 @@ function downloadFile({ pluginUrl, folders, update }) {
         PluginFolder = PluginFolder.replace('-master', '');
       }
       // finally move the Plugin Folder to the Craft Plugin Folder with the name of the Plugin
+      console.log(`update?: ${update}`);
       fs.moveSync(PluginFileDirectory, folders.pluginFolder + PluginFolder, {
         overwrite: update,
       });
@@ -104,7 +105,7 @@ async function downloadPlugin({ url, folders, willUpdate = false }) {
 
     if (!willUpdate) return console.log(chalk`{yellow Plugin will not get updated}`);
   }
-
+  console.log(`willUpdate?: ${willUpdate}`);
   return downloadFile({
     pluginUrl: url,
     folders,
